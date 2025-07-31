@@ -51,18 +51,20 @@ export async function POST(request) {
           for (let j = 0; j < columnas; j++) {
             // 7.2 Recorremos la lista de direcciones para buscar la palabra en cada dirección desde la posición actual
             for (const [dx, dy] of directions) {
-              if (buscarDesde(i, j, dx, dy, palabra, matriz)) {
-                return true // 7.r Si la palabra se encuentra en la dirección actual, retornamos true. De lo contrario seguimos en la siguiente dirección.
-              }
+                const positions = buscarDesde(i, j, dx, dy, palabra, matriz)
+                if (positions) {
+                    return positions // 7.r Si la palabra se encuentra en la dirección actual, retornamos las posiciones. De lo contrario seguimos en la siguiente dirección.
+                }
             }
           }
         }
-        // 7.r2 Si la palabra no es encontrada en ninguna dirección, retornamos false.
-        return false
+        // 7.r2 Si la palabra no es encontrada en ninguna dirección, retornamos nulo.
+        return null
     }
 
     // 8. Creamos una función que recibe la posición inicial, una dirección, la palabra que deseamos buscar y la matriz.
     function buscarDesde (x, y, dx, dy, palabra, matriz) {
+        const positions = []
         // 8.1 Recorremos la longitud de la palabra
         for (let k = 0; k < palabra.length; k++) {
             // 8.2 Definimos la posición actual en la matriz en función de la posición inicial (x,y) y la dirección (dx,dy).
@@ -71,17 +73,20 @@ export async function POST(request) {
 
             // 8.3 Verificamos si la posición actual está fuera de los límites de la matriz.
             if (nx < 0 || ny < 0 || nx >= filas || ny >= columnas) {
-                return false
+                return null
             }
 
             // 8.4 Comparamos la letra de la posición actual de la matriz con la letra de la palabra que deseamos buscar.
             if (matriz[nx][ny] !== palabra[k]) {
-                return false
+                return null
             }
+
+            // 8.5 Si la letra es igual, agregamos la posición actual al arreglo de posiciones.
+            positions.push([nx, ny])
         }
 
-        // 8.r Si en ningún punto del ciclo se retorna false, significa que la palabra se encontró, por lo que retornamos true.
-        return true
+        // 8.r Si en ningún punto del ciclo se retorna false, significa que la palabra se encontró, por lo que retornamos las posiciones de la palabra encontrada.
+        return positions
     }
 
     // 9. Creamos dos arreglos para almacenar palabras encontradas y no encontradas.
@@ -90,8 +95,12 @@ export async function POST(request) {
 
     // 10. Iteramos la lista de palabras y usamos nuestra función para buscar cada palabra en la matriz.
     for (const palabra of wordsArray) {
-        if (buscarPalabraEnMatriz(palabra, soupMatrix)) {
-          foundWords.push(palabra)
+        const posiciones = buscarPalabraEnMatriz(palabra, soupMatrix)
+        if (posiciones) {
+            foundWords.push({
+                word: palabra,
+                positions: posiciones
+            })
         } else {
             notFoundWords.push(palabra)
         }
