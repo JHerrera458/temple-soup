@@ -91,7 +91,7 @@ npm run dev
 ```
 
 4. Abre tu navegador web y accede a la aplicación en [http://localhost:3000](http://localhost:3000)
-También puedes usar la aplicación desplegada en producción [aquí 👇]()
+También puedes usar la aplicación desplegada en producción [aquí 👇](https://temple-soup.vercel.app/)
 
 ## Vista previa del proyecto
 ![Vista previa del proyecto](./public/preview.PNG)
