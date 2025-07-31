@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🥣 TempleSoup: Buscador de Palabras en Sopa de Letras
 
-## Getting Started
+## Descripción del proyecto
+TempleSoup es una aplicación web interactiva que permite a los usuarios crear una sopa de letras personalizada y buscar palabras dentro de ella. El usuario ingresa:
 
-First, run the development server:
+- **Letras de la sopa de letras:** 196 letras separadas por comas, que conforman una matriz de 14x14.
+- **Palabras a buscar:** Una lista de palabras separadas por comas.
+
+La aplicación muestra la sopa de letras en pantalla. Las palabras encontradas se resaltan con distintos colores, y se listan junto con aquellas que no fueron encontradas (estas últimas en rojo).
+
+## Tecnologías empleadas
+- **💎 Framework:** Next.js (React)
+- **🎨 Estilos:** Tailwind CSS
+- **📕 Lenguaje:** JavaScript
+- **🔨 Editor:** Trae
+
+
+## Recursos especiales
+
+Durante el desarrollo de este proyecto se consultaron los siguientes recursos:
+
+- [Documentación oficial de Next.js](https://nextjs.org/docs)
+- [Documentación de Tailwind CSS](https://tailwindcss.com/docs)
+- [W3Schools - Referencia de JavaScript](https://www.w3schools.com/jsref/default.asp)
+- [ChatGPT (OpenAI)](https://chatgpt.com/)
+
+Gran parte del código fue desarrollado de forma autónoma. Se usó ChatGPT específicamente para:
+- Sugerir el uso de un arreglo de direcciones y la implementación de la función `buscarDesde`, como se muestra a continuación:
+```javascript
+// 6. Creamos un arreglo con las posibles direcciones de busqueda
+const directions = [
+    [0, 1], // derecha
+    [0, -1], // izquierda
+    [1, 0], // abajo
+    [-1, 0], // arriba
+    [1, 1], // diagonal ↘
+    [1, -1], // diagonal ↙
+    [-1, 1], // diagonal ↗
+    [-1, -1] // diagonal ↖
+]
+```
+
+```javascript
+function buscarDesde (x, y, dx, dy, palabra, matriz) {
+    const positions = []
+    // 8.1 Recorremos la longitud de la palabra
+    for (let k = 0; k < palabra.length; k++) {
+        // 8.2 Definimos la posición actual en la matriz en función de la posición inicial (x,y) y la dirección (dx,dy).
+        const nx = x + (dx * k)
+        const ny = y + (dy * k)
+
+        // 8.3 Verificamos si la posición actual está fuera de los límites de la matriz.
+        if (nx < 0 || ny < 0 || nx >= filas || ny >= columnas) {
+            return null
+        }
+
+        // 8.4 Comparamos la letra de la posición actual de la matriz con la letra de la palabra que deseamos buscar.
+        if (matriz[nx][ny] !== palabra[k]) {
+            return null
+        }
+
+        // 8.5 Si la letra es igual, agregamos la posición actual al arreglo de posiciones.
+        positions.push([nx, ny])
+    }
+
+    // 8.r Si en ningún punto del ciclo se retorna false, significa que la palabra se encontró, por lo que retornamos las posiciones de la palabra encontrada.
+    return positions
+}
+```
+  
+## Cómo ejecutar el proyecto
+
+> ⚠️ Asegúrate de tener instalado [Node.js](https://nodejs.org/)
+
+1. Clona el repositorio:
+```bash
+git clone https://github.com/usuario/templesoup.git
+cd templesoup
+```
+
+2. Instala las dependencias del proyecto utilizando:
+   
+```bash
+npm i
+```
+
+3. Inicia la aplicación en modo desarrollo usando:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Abre tu navegador web y accede a la aplicación en [http://localhost:3000](http://localhost:3000)
+También puedes usar la aplicación desplegada en producción [aquí 👇]()
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Vista previa del proyecto
+![Vista previa del proyecto](./public/preview.png)
