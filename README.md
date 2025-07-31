@@ -94,4 +94,4 @@ npm run dev
 También puedes usar la aplicación desplegada en producción [aquí 👇]()
 
 ## Vista previa del proyecto
-![Vista previa del proyecto](./public/preview.png)
+![Vista previa del proyecto](./public/preview.PNG)
