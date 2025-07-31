@@ -92,6 +92,11 @@ export async function POST(request) {
     // 9. Creamos dos arreglos para almacenar palabras encontradas y no encontradas.
     const foundWords = []
     const notFoundWords = []
+    const colors = ["bg-orange-100", "bg-green-100", "bg-blue-100", "bg-yellow-100", "bg-purple-100"]
+
+    const getRandomInt = (max) => {
+        return Math.floor(Math.random() * max);
+      }
 
     // 10. Iteramos la lista de palabras y usamos nuestra función para buscar cada palabra en la matriz.
     for (const palabra of wordsArray) {
@@ -99,7 +104,8 @@ export async function POST(request) {
         if (posiciones) {
             foundWords.push({
                 word: palabra,
-                positions: posiciones
+                positions: posiciones,
+                color: colors[getRandomInt(5)]
             })
         } else {
             notFoundWords.push(palabra)
