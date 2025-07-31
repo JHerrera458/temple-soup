@@ -74,7 +74,7 @@ function buscarDesde (x, y, dx, dy, palabra, matriz) {
 
 1. Clona el repositorio:
 ```bash
-git clone https://github.com/usuario/templesoup.git
+git clone https://github.com/JHerrera458/temple-soup.git
 cd templesoup
 ```
 
