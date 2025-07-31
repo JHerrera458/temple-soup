@@ -54,11 +54,11 @@ export default function Home() {
     <div>
       <header className="flex items-center justify-center py-4 bg-blue-800 text-white font-bold text-4xl uppercase">
         <Image src="/soup.png" alt="Icono de una sopa" width={50} height={50} />
-        Temple Soup
+        <h1 className="tracking-wider">Temple Soup</h1>
         <Image src="/soup.png" alt="Icono de una sopa" width={50} height={50} />
       </header>
       <section className="px-4 pt-6">
-        <form className="flex flex-col gap-2 mb-4" onSubmit={handleSubmit}>
+        <form className="flex flex-col max-w-[60rem] mx-auto gap-2 mb-4" onSubmit={handleSubmit}>
           <label htmlFor="soupLetters">Ingresa las letras de la sopa de letras:</label>
           <textarea value={soupLetters} onChange={(e) => setSoupLetters(e.target.value)} id="soupLetters" rows="3" placeholder="A, E, I, O, U, Z..." className="border rounded border-gray-400 px-2 py-1.5 focus:border-gray-600 focus:border-2 outline-none"/>
           <label htmlFor="words">Ingresa las palabras que deseas buscar:</label>
